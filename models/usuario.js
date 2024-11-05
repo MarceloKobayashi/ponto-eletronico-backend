@@ -15,7 +15,7 @@ const Usuario = sequelize.define (
         },
         email: {
             type: DataTypes.STRING,
-            allowNull: true
+            allowNull: false
         },
         login: {
             type: DataTypes.STRING,
@@ -24,8 +24,14 @@ const Usuario = sequelize.define (
         senha: {
             type: DataTypes.STRING,
             allowNull: false
-        }
+        },
+        permissao: {
+            type: DataTypes.ENUM('usuario', 'administrador'),
+            allowNull: false
+        },
     }, {
         timestamps: true
     }
 );
+
+module.exports = Usuario;

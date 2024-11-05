@@ -4,15 +4,25 @@ const PORT = 3000;
 
 //Importando o módulo
 const sequelize = require('./config/db');
+const Usuario = require('./models/usuario');
+const Ponto = require('./models/ponto');
 
-//Testando a conexão
+/*Testando a conexão
 sequelize.authenticate()
             .then(() => {   //authenticate é assíncrono, por isso a listen ocorre antes
                 console.log("Conexão sucesso!");
             }).catch(error => {
                 console.log("Erro!");
             });
+*/
 
+//Atualiza as colunas
+sequelize.sync({ alter: true })
+        .then(() => {
+            console.log("BD sincronizado.");
+        }).catch(error => {
+            console.log("Erro!");
+        });
 
 //ROTAS: app.[Method]([Path], [Handler])
 app.get('/', (req, res) => {
