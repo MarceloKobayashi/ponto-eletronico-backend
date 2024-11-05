@@ -2,6 +2,18 @@ const express = require('express');
 const app = express();
 const PORT = 3000;
 
+//Importando o módulo
+const sequelize = require('./config/db');
+
+//Testando a conexão
+sequelize.authenticate()
+            .then(() => {   //authenticate é assíncrono, por isso a listen ocorre antes
+                console.log("Conexão sucesso!");
+            }).catch(error => {
+                console.log("Erro!");
+            });
+
+
 //ROTAS: app.[Method]([Path], [Handler])
 app.get('/', (req, res) => {
     res.send("Chamada ao recurso usando o get realizada com sucesso.");
