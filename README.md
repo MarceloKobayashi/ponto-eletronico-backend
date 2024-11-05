@@ -10,3 +10,5 @@ gitignore
 1) criar um bd postgres 'ponto' no pgadmin
 2) npm install sequelize pg
 
+3) npm install dotenv //modulo dotenv
+
