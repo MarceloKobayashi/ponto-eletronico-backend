@@ -12,3 +12,6 @@ gitignore
 
 3) npm install dotenv //modulo dotenv
 
+-----------------------------
+1) Criar user no BD: pgwebccb ceub123 no PGADMIN4
+

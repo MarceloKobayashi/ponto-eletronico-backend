@@ -17,30 +17,56 @@ sequelize.authenticate()
 */
 
 //Atualiza as colunas
-sequelize.sync({ alter: true })
+sequelize.sync({ alter: true }) //Se houver divergência entre modelo e tabela, reconstroi a tabela e mantem os dados
         .then(() => {
             console.log("BD sincronizado.");
         }).catch(error => {
             console.log("Erro!");
         });
 
+app.use(express.json());
+
 //ROTAS: app.[Method]([Path], [Handler])
-app.get('/', (req, res) => {
-    res.send("Chamada ao recurso usando o get realizada com sucesso.");
+app.get('/usuarios', async (req, res) => {
+    //Retorna todos os usuários
+    try {
+        const usuarios = await Usuario.findAll();
+        res.json(usuarios);
+    } catch (error) {
+        console.log("Erro ao exibir usuários: ", usuarios);
+    }
 });
 
-//Retornar todos os usuários
-app.get('/users', (req, res) => {
-    res.send("Aqui vou retornar todos os usuários do sistema.");
+app.get('/usuario/:id', async (req, res) => {
+    const usuario_id = req.params.id;
+    
+    const usuario = await Usuario.findAll({
+        where: {
+            id_usuario: usuario_id,
+        },
+    });
+    
+    if (usuario.length === 0) {
+        return res.status(404).json({ message: "Usuário não encontrado." });
+    }
+    
+    res.json(usuario);
 });
 
-//Retornar o usuário com um id específico
-app.get('/user/:id', (req, res) => {
-    console.log(req.params.id); //Valor do parâmetro 'id'
-});
+app.post('/usuario', async (req, res) => {
+    const dados = req.body;
 
-app.post('/rotapost', (req, res) => {
-    res.send("Chamada ao recurso usando post realizada com sucesso.");
+    const usuario = await Usuario.create(
+        {
+            nome: dados.nome,
+            login: dados.login,
+            email: dados.email,
+            senha: dados.senha,
+            permissao: dados.permissao,
+        },
+    )
+
+    res.status(201).json(usuario);
 });
 
 app.listen(PORT, () => {
