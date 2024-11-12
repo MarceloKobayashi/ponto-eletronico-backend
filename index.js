@@ -1,11 +1,14 @@
 const express = require('express');
 const app = express();
 const PORT = 3000;
+const cors = require('cors');
 
 //Importando o módulo
 const sequelize = require('./config/db');
 const Usuario = require('./models/usuario');
 const Ponto = require('./models/ponto');
+
+app.use(cors({ origin: 'http://127.0.0.1:5500' }));
 
 /*Testando a conexão
 sequelize.authenticate()
