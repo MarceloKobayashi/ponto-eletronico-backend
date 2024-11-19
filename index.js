@@ -72,6 +72,33 @@ app.post('/usuario', async (req, res) => {
     res.status(201).json(usuario);
 });
 
+app.delete('/usuario/:id', async (req, res) => {
+    const id_usuario = req.params.id;
+
+    const usuario = await Usuario.findByPk(id_usuario);
+
+    if (!usuario) {
+        return
+    }
+
+    await usuario.destroy();
+    res.status(204).json({ message: "Usuário deletado com sucesso!" });
+});
+
+app.put('/usuario/:id', async (req, res) => {
+    const { nome, email, login, senha, permissao } = req.body;
+    const id_usuario = req.params.id;
+    const usuario = await Usuario.findByPk(id_usuario);
+
+    if (!usuario) {
+        return
+    }
+
+    await usuario.update({nome, email, login, senha, permissao});
+
+    res.status(200).json({ message: "Usuário editado com sucesso!" });
+});
+
 app.listen(PORT, () => {
     console.log("Servidor aguardando requisições.");
 });
