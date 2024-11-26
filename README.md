@@ -1,7 +1,7 @@
 # ponto-eletronico-backend
 
 npm init : description e author
-npm .\index.js
+node .\index.js
 npm install express
 
 gitignore

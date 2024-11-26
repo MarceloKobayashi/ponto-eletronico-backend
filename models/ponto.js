@@ -27,12 +27,17 @@ const Ponto = sequelize.define (
             allowNull: true
         },
         dataHora: {
-            type: DataTypes.DATE,
+            type: DataTypes.STRING,
             allowNull: false
         },
         localizacao: {
             type: DataTypes.STRING,
             allowNull: true
+        },
+        id_usuario: {
+            type: DataTypes.INTEGER,
+            allowNull: false,
+            key: 'id_usuario'
         }
     }, {
         //Data de criação e de atualização
